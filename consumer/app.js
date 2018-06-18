@@ -53,6 +53,7 @@ app.get('/login', (req, res, next) => res.render('login'));
 app.get('/auth/oauth2-example', passport.authenticate('oauth2-example'));
 app.get('/auth/oauth2-example/callback', (req, res) => {
   // Successful authentication, redirect home.
+  console.log('/auth/oauth2-example/callback')
   res.redirect('/');
 });
 
