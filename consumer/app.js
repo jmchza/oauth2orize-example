@@ -9,7 +9,7 @@ const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
 const config = require('./config');
-
+var morgan = require('morgan');
 // Express configuration
 const app = express();
 app.set('view engine', 'ejs');
@@ -20,7 +20,7 @@ app.use(errorHandler());
 app.use(session({ secret: 'keyboard dog', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(morgan('combined'))
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.

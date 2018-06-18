@@ -7,6 +7,7 @@ const errorHandler = require('errorhandler');
 const session = require('express-session');
 const passport = require('passport');
 const routes = require('./routes');
+var morgan = require('morgan');
 
 // Express configuration
 const app = express();
@@ -18,7 +19,7 @@ app.use(errorHandler());
 app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(morgan('combined'))
 // Passport configuration
 require('./auth');
 
