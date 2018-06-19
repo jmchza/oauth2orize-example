@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  oauth2ServerBaseUrl: 'http://localhost:3000',
+  oauth2ServerBaseUrl: 'http://localhost:1337',
   authorizationUrl: '/auth/oauth2/authorize',
   tokenUrl: '/auth/oauth2/token',
   clientId: 'abc123',
