@@ -38,5 +38,5 @@ app.get('/api/clientinfo', routes.client.info);
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
-  console.log('OAuth2 provider is listening on port ' + port);
+  console.log('OAuth2 provider APP is listening on port ' + port);
 });

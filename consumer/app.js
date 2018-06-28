@@ -53,11 +53,11 @@ app.get('/login', (req, res, next) => res.render('login'));
 app.get('/auth/oauth2-example', passport.authenticate('oauth2-example'));
 app.get('/auth/oauth2-example/callback', (req, res) => {
   // Successful authentication, redirect home.
-  console.log('/auth/oauth2-example/callback')
+  console.log('Successful authentication, redirect home ..... redirecting to  /auth/oauth2-example/callback')
   res.redirect('/');
 });
 
 const port = process.argv[2] || 3002;
 app.listen(port, function() {
-  console.log('OAuth2 provider is listening on port ' + port);
+  console.log('OAuth2 consumer APP is listening on port ' + port);
 });
