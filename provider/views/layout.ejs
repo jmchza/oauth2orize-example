@@ -4,6 +4,15 @@
     <title>OAuth2orize Provider Example</title>
   </head>
   <body>
-    <%- body %>
+    <form action="/auth/oauth2/token" method="post">
+    	<div>
+      	<label>CODE:</label>
+      	<input type="text" name="username" /><br/>
+    	</div>
+
+    	<div>
+    	  <input type="submit" value="Submit" />
+    	</div>
+    </form>
   </body>
 </html>

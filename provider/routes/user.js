@@ -3,7 +3,8 @@
 const passport = require('passport');
 
 module.exports.info = [
-  passport.authenticate('bearer', { session: false }),
+  passport.authenticate('bearer', { successRedirect: '/',
+                                    failureRedirect: '/login' }),
   (request, response) => {
     // request.authInfo is set using the `info` argument supplied by
     // `BearerStrategy`. It is typically used to indicate scope of the token,

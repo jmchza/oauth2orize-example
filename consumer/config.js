@@ -4,7 +4,7 @@ module.exports = {
   oauth2ServerBaseUrl: 'http://localhost:3000',
   authorizationUrl: '/auth/oauth2/authorize',
   tokenUrl: '/auth/oauth2/token',
-  clientId: 'abc123',
-  clientSecret: 'ssh-secret',
+  clientId: 'xyz123',
+  clientSecret: 'ssh-passwords',
   callbackUrl: 'http://localhost:3002/auth/oauth2-example/callback'
 };

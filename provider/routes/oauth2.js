@@ -25,6 +25,7 @@ const server = oauth2orize.createServer();
 server.serializeClient((client, done) => done(null, client.id));
 
 server.deserializeClient((id, done) => {
+  console.log('5555555');
   db.clients.findById(id, (error, client) => {
     if (error) return done(error);
     return done(null, client);
@@ -47,6 +48,7 @@ server.deserializeClient((id, done) => {
 
 server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
   const code = utils.getUid(16);
+  console.log('666666666');
   db.authorizationCodes.save(code, client.id, redirectUri, user.id, (error) => {
     if (error) return done(error);
     return done(null, code);
@@ -61,6 +63,7 @@ server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
 
 server.grant(oauth2orize.grant.token((client, user, ares, done) => {
   const token = utils.getUid(256);
+  console.log('77777777777');
   db.accessTokens.save(token, user.id, client.clientId, (error) => {
     if (error) return done(error);
     return done(null, token);
@@ -74,6 +77,7 @@ server.grant(oauth2orize.grant.token((client, user, ares, done) => {
 // code.
 
 server.exchange(oauth2orize.exchange.code((client, code, redirectUri, done) => {
+  console.log('8888888888');
   db.authorizationCodes.find(code, (error, authCode) => {
     if (error) return done(error);
     if (client.id !== authCode.clientId) return done(null, false);
@@ -93,6 +97,7 @@ server.exchange(oauth2orize.exchange.code((client, code, redirectUri, done) => {
 // application issues an access token on behalf of the user who authorized the code.
 
 server.exchange(oauth2orize.exchange.password((client, username, password, scope, done) => {
+  console.log('99999999999');
   // Validate the client
   db.clients.findByClientId(client.clientId, (error, localClient) => {
     if (error) return done(error);
@@ -119,6 +124,7 @@ server.exchange(oauth2orize.exchange.password((client, username, password, scope
 // application issues an access token on behalf of the client who authorized the code.
 
 server.exchange(oauth2orize.exchange.clientCredentials((client, scope, done) => {
+console.log('1010101010101');
   // Validate the client
   db.clients.findByClientId(client.clientId, (error, localClient) => {
     if (error) return done(error);
@@ -153,6 +159,7 @@ server.exchange(oauth2orize.exchange.clientCredentials((client, scope, done) => 
 module.exports.authorization = [
   login.ensureLoggedIn(),
   server.authorization((clientId, redirectUri, done) => {
+    console.log('11111111');
     db.clients.findByClientId(clientId, (error, client) => {
       if (error) return done(error);
       // WARNING: For security purposes, it is highly advisable to check that
@@ -163,7 +170,7 @@ module.exports.authorization = [
     });
   }, (client, user, done) => {
     // Check if grant request qualifies for immediate approval
-
+console.log('2222222222');
     // Auto-approve
     if (client.isTrusted) return done(null, true);
 
@@ -176,6 +183,7 @@ module.exports.authorization = [
     });
   }),
   (request, response) => {
+    console.log('333333333');
     response.render('dialog', {
       transactionId: request.oauth2.transactionID,
       user: request.user,

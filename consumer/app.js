@@ -41,9 +41,9 @@ passport.use('oauth2-example', new OAuth2Strategy({
     callbackURL: config.callbackUrl
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(accessToken);
-    console.log(refreshToken);
-    console.log(profile);
+    console.log('accessToken: ========= ' + accessToken);
+    console.log('refreshToken: ========== ' + refreshToken);
+    console.log('profile: ========= ' + profile);
   }
 ));
 
@@ -54,8 +54,9 @@ app.get('/auth/oauth2-example', passport.authenticate('oauth2-example'));
 app.get('/auth/oauth2-example/callback', (req, res) => {
   // Successful authentication, redirect home.
   console.log('Successful authentication, redirect home ..... redirecting to  /auth/oauth2-example/callback')
-  res.redirect('/');
+  res.render('layout');
 });
+app.post('/get/token', (req, res, next) => res.render('layout'));
 
 const port = process.argv[2] || 3002;
 app.listen(port, function() {

@@ -35,6 +35,7 @@ app.post('/auth/oauth2/token', routes.oauth2.token);
 
 app.get('/api/userinfo', routes.user.info);
 app.get('/api/clientinfo', routes.client.info);
+app.get('/api/token', routes.site.token);
 
 var port = process.env.PORT || 3000;
 app.listen(port, function() {
