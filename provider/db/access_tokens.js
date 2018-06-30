@@ -15,6 +15,7 @@ module.exports.findByUserIdAndClientId = (userId, clientId, done) => {
 };
 
 module.exports.save = (token, userId, clientId, done) => {
+  console.log('persisting token: ' + token + ' for userId: ' + userId + ' clientId: ' + clientId);
   tokens[token] = { userId, clientId };
   done();
 };

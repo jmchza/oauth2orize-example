@@ -48,7 +48,7 @@ server.deserializeClient((id, done) => {
 
 server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
   const code = utils.getUid(16);
-  console.log('666666666');
+  console.log('666666666:::::: ' + code);
   db.authorizationCodes.save(code, client.id, redirectUri, user.id, (error) => {
     if (error) return done(error);
     return done(null, code);
@@ -63,7 +63,7 @@ server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
 
 server.grant(oauth2orize.grant.token((client, user, ares, done) => {
   const token = utils.getUid(256);
-  console.log('77777777777');
+  console.log('77777777777::: ' + token);
   db.accessTokens.save(token, user.id, client.clientId, (error) => {
     if (error) return done(error);
     return done(null, token);

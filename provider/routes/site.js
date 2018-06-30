@@ -2,14 +2,27 @@
 
 const passport = require('passport');
 const login = require('connect-ensure-login');
+const db = require('../db');
 
 module.exports.index = (request, response) => response.send('OAuth 2.0 Server');
 
 module.exports.loginForm = (request, response) => response.render('login');
 
-module.exports.login = passport.authenticate('local', { successReturnToOrRedirect: '/api/token', failureRedirect: '/login' });
+module.exports.login = passport.authenticate('local', { successReturnToOrRedirect: '/account', failureRedirect: '/login' });
 
-module.exports.token = (request, response) => response.render('layout');
+module.exports.tokens = (request, response, done) => {
+  console.log(request.userId + '============'+ request.clientId)
+  var res = db.accessTokens.findByUserIdAndClientId(1, 'xyz123'
+    , (error, token) => {
+    if (error) return done(error);
+    if (!token) return done(null, false);
+
+  }
+);
+
+}
+
+module.exports.seetokens = (request, response) => response.render('seetokens');
 
 module.exports.logout = (request, response) => {
   request.logout();

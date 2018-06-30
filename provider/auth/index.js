@@ -16,6 +16,7 @@ const db = require('../db');
  */
 passport.use(new LocalStrategy(
   (username, password, done) => {
+    console.log('LocalStrategy...............................' + username + ' :: ' + password);
     db.users.findByUsername(username, (error, user) => {
       if (error) return done(error);
       if (!user) return done(null, false);
@@ -70,7 +71,7 @@ passport.use(new BearerStrategy(
       if (error) return done(error);
       if (!token) return done(null, false);
       if (token.userId) {
-        db.users.findByUserId(token.userId, (error, user) => {
+        db.users.findById(token.userId, (error, user) => {
           if (error) return done(error);
           if (!user) return done(null, false);
           // To keep this example simple, restricted scopes are not implemented,

@@ -8,6 +8,8 @@ const session = require('express-session');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
+var http = require('http');
+
 const config = require('./config');
 var morgan = require('morgan');
 // Express configuration
@@ -33,6 +35,24 @@ passport.deserializeUser((user, done) => {
   done(error, user);
 });
 
+var options = {
+  host: 'localhost',
+  path: '/auth/oauth2/token',
+  port: '3000',
+  method: 'POST'
+};
+
+var callback = function(response) {
+  var str = ''
+  response.on('data', function (chunk) {
+    str += chunk;
+  });
+
+  response.on('end', function () {
+    console.log(str);
+  });
+}
+
 passport.use('oauth2-example', new OAuth2Strategy({
     authorizationURL: config.oauth2ServerBaseUrl + config.authorizationUrl,
     tokenURL: config.oauth2ServerBaseUrl + config.tokenUrl,
@@ -53,10 +73,23 @@ app.get('/login', (req, res, next) => res.render('login'));
 app.get('/auth/oauth2-example', passport.authenticate('oauth2-example'));
 app.get('/auth/oauth2-example/callback', (req, res) => {
   // Successful authentication, redirect home.
-  console.log('Successful authentication, redirect home ..... redirecting to  /auth/oauth2-example/callback')
-  res.render('layout');
+  console.log('CODE: ' + req.query.code);
+
+  // var req = http.request(options, callback);
+  // //This is the data we are posting, it needs to be a string or a buffer
+  // req.write("data");
+  // req.end();
+
+  res.render('callback', {code: req.query.code});
+  // res.send('http://localhost:3000/auth/oauth2/token', { code: req.query.code })
 });
-app.post('/get/token', (req, res, next) => res.render('layout'));
+app.post('/get/token', (req, res, next) => {
+  console.log('CODE:=== ' + req.query.code)
+  req.body = req.query.code;
+  res.send(req.body);
+});
+
+
 
 const port = process.argv[2] || 3002;
 app.listen(port, function() {
