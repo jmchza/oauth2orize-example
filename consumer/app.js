@@ -74,12 +74,6 @@ app.get('/auth/oauth2-example', passport.authenticate('oauth2-example'));
 app.get('/auth/oauth2-example/callback', (req, res) => {
   // Successful authentication, redirect home.
   console.log('CODE: ' + req.query.code);
-
-  // var req = http.request(options, callback);
-  // //This is the data we are posting, it needs to be a string or a buffer
-  // req.write("data");
-  // req.end();
-
   res.render('callback', {code: req.query.code});
   // res.send('http://localhost:3000/auth/oauth2/token', { code: req.query.code })
 });
@@ -88,8 +82,6 @@ app.post('/get/token', (req, res, next) => {
   req.body = req.query.code;
   res.send(req.body);
 });
-
-
 
 const port = process.argv[2] || 3002;
 app.listen(port, function() {
