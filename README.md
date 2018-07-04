@@ -1,4 +1,4 @@
-# oauth2orize-example
+# Oauth Provider and Consumer
 
 
 1. Checkout the right branch
