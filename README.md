@@ -1,6 +1,5 @@
 # oauth2orize-example
 
-Following is the sequence to follow:
 
 1. Checkout the right branch
 2. Run the server located in the provider directory (Command: node app.js)
