@@ -8,5 +8,4 @@
 5. Follow all the links to generate a new OATH Access token
 6. Copy the Access token from the last page and call the next operation with the Authorization header set:
   (either with Postman or with the curl command as shown below)
-
-  curl -v -H "Authorization: Bearer token" http://127.0.0.1:3000/api/userinfo
+    curl -v -H "Authorization: Bearer token" http://127.0.0.1:3000/api/userinfo
