@@ -49,7 +49,8 @@ server.deserializeClient((id, done) => {
 server.grant(oauth2orize.grant.code((client, redirectUri, user, ares, done) => {
   const code = utils.getUid(16);
   console.log('666666666:::::: ' + code);
-  db.authorizationCodes.save(code, client.id, redirectUri, user.id, (error) => {
+  // client.hset(code, [ 'userId', userId, 'clientId', client.id], redis.print);
+  db.authorizationCodes.save(code, client.id, user.id, (error) => {
     if (error) return done(error);
     return done(null, code);
   });
@@ -170,7 +171,7 @@ module.exports.authorization = [
     });
   }, (client, user, done) => {
     // Check if grant request qualifies for immediate approval
-console.log('2222222222');
+    console.log('2222222222: ' + client.isTrusted);
     // Auto-approve
     if (client.isTrusted) return done(null, true);
 

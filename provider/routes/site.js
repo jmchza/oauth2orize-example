@@ -4,6 +4,8 @@ const passport = require('passport');
 const login = require('connect-ensure-login');
 const db = require('../db');
 
+var client;
+
 module.exports.index = (request, response) => response.send('OAuth 2.0 Server');
 
 module.exports.loginForm = (request, response) => response.render('login');
@@ -33,3 +35,11 @@ module.exports.account = [
   login.ensureLoggedIn(),
   (request, response) => response.render('account', { user: request.user }),
 ];
+
+module.exports.setClient =  function(inClient, length) {
+  client = inClient;
+  db.clients.setClient(inClient, length);
+  db.users.setClient(inClient, length);
+  db.authorizationCodes.setClient(inClient);
+  db.accessTokens.setClient(inClient);
+}
